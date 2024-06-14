@@ -1,6 +1,6 @@
 # Add a new user to linux server 
 This ansible play lets new members of our dev team enter their user details and SSH public keys.  
-When the playbook is run, it adds these users to our existing dev server, giving them SSH access and sudo privileges to administrative members  
+When the playbook is run, it adds these users to our existing dev EC2 instance, giving them SSH access and sudo privileges to administrative members  
 
 ## To use:
 - Fork repository
