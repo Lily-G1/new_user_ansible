@@ -1,0 +1,25 @@
+---
+  dev_team:
+    - username: james
+      uid: 1101
+      fullname: James Theo
+      type: admin
+      state: present
+      key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFQHfb9qEss9JuUlf9YxPj6gsKblr3yOk/QhdAKge0xO james@ip-172-31-21-206
+
+    - username: luke
+      uid: 1102
+      fullname: Luke Kang
+      type: non-admin
+      state: present
+      key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHKD9WRhxXm3szHAJW7k+oCUekne1tH+MxoxR168wQdY luke@ip-172-31-24-152
+
+    - username: amanda
+      uid: 1105
+      fullname: Amanda Keys
+      type: admin
+      state: present
+      key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBZADk/oSn851XuMvOr1bp2P1kd1P0/w48a1slcq3bae amanda@ip-172-31-24-152
+
+
+

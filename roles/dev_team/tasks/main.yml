@@ -1,0 +1,33 @@
+---
+
+- name: add user
+  user:
+    name: "{{ item.username }}"
+    uid: "{{ item.uid }}"
+    comment: "{{ item.fullname }}"
+    shell: /bin/bash
+    create_home: yes
+    state: "{{ item.state | default('present') }}"
+  with_items: "{{ dev_team }}"
+
+
+- name: update authorized_keys file with user's key
+  authorized_key:
+    user: "{{ item.username }}"
+    key: "{{ item.key }}"
+  when: item.get('state', 'present') == 'present'
+  with_items: "{{ dev_team }}"
+
+
+- name: assign sudo privilege to admin users
+  copy:
+    content: "{{ item.username }} ALL=(ALL) NOPASSWD:ALL"
+    dest: "/etc/sudoers.d/dev-{{ item.username }}"
+    owner: root
+    group: root
+    mode: 0440
+  when: item.type is defined and item.type == 'admin' and item.state == 'present'
+  with_items: "{{ dev_team }}"
+
+
+
