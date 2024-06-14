@@ -1,0 +1,9 @@
+---
+
+# playbook to give new dev-team members access to EC2s in dev environment
+- name: add dev team users to dev EC2 instance
+  hosts: _web_server_dev
+  become: true
+
+  roles:
+    - dev_team

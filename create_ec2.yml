@@ -1,0 +1,51 @@
+---
+- hosts: local
+  connection: local
+
+  vars:
+    key_name: web_server
+    region: us-east-1
+    image:
+    id:
+    instance_type: t2.micro
+    vpc_id:
+    sec_group: web_server_sg
+
+  tasks:
+    - name: generate ssh key-pair
+      amazon.aws.ec2_key:
+        name: web_server_key
+        key_type: "ed25519"
+        region: us-east-1
+        file_name: ~/ansible/new_user/web_server_key.pem
+
+    - name: create security group
+      amazon.aws.ec2_security_group:
+        name: web_server_sg
+        description: "web server sec. group"
+        region: us-east-1
+        rules:
+          - proto: tcp
+            ports:
+              - 22
+              - 80
+              - 443
+            cidr_ip: 0.0.0.0/0
+            rule_desc: allow all on http, https & ssh
+
+    - name: provision EC2 instance with public IP
+      amazon.aws.ec2_instance:
+        name: "web_server"
+        region: us-east-1
+        key_name: web_server_key
+        instance_type: t2.micro
+        security_group: web_server_sg
+        network:
+          assign_public_ip: true
+        image_id: ami-04b70fa74e45c3917
+        tags:
+          name: web_server
+          service: ansible_node
+          environment: dev
+          role: apache_web_server
+          team: devops

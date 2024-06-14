@@ -1,0 +1,11 @@
+plugin: amazon.aws.aws_ec2
+#boto_profile:
+regions:
+  - us-east-1
+filters:
+  instance-state-name: running
+keyed_groups:
+  - key: tags.get('role', 'unknown') + "_" + tags.get('service', 'unknown') + "_" + tags.get('environment', 'unknown')
+    seperator: ''
+  - key: tags.get('name', 'unknown') + "_" + tags.get('environment', 'unknown')
+    seperator: ''

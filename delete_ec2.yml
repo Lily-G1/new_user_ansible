@@ -1,0 +1,20 @@
+---
+- hosts: local
+  connection: local
+
+  tasks:
+    - name: terminate EC2 instance
+      amazon.aws.ec2_instance:
+        name: web_server
+        state: absent
+
+    - name: delete security group
+      amazon.aws.ec2_security_group:
+        name: web_server_sg
+        state: absent
+
+    - name: delete ssh key-pair
+      amazon.aws.ec2_key:
+        name: web_server_key
+        file_name: ~/ansible/new_user/web_server_key.pem
+        state: absent
